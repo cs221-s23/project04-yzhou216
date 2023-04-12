@@ -2,10 +2,6 @@
 
 int main(int argc, char **argv)
 {
-	struct scan_table_st scan_table; /* table of tokens */
-	struct parse_table_st parse_table; /* table of parse nodes */
-	struct parse_node_st *parse_tree; /* tree (pointers only) of parse nodes*/
-
 	if (argc < 3 || argc > 5)
 		goto arg_err;
 
@@ -28,6 +24,10 @@ int main(int argc, char **argv)
 
 	strncpy(expr, argv[2], SCAN_INPUT_LEN);
 	len = strnlen(expr, SCAN_INPUT_LEN);
+
+	struct scan_table_st scan_table; /* table of tokens */
+	struct parse_table_st parse_table; /* table of parse nodes */
+	struct parse_node_st *parse_tree; /* tree (pointers only) of parse nodes*/
 
 	scan_table_init(&scan_table);
 	scan_table_scan(&scan_table, expr, len);
