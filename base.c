@@ -1,4 +1,3 @@
-#include <math.h>
 #include "project04.h"
 
 int string_to_int(char *str, int base)
