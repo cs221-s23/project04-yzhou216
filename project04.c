@@ -5,6 +5,7 @@ int main(int argc, char **argv)
 	if (argc < 3 || argc > 5)
 		goto arg_err;
 
+	bool eflag = false;
 	char expr[SCAN_INPUT_LEN];
 	int len;
 	bool bflag = false;
@@ -13,6 +14,7 @@ int main(int argc, char **argv)
 		if (!strcmp(argv[i], "-e")) {
 			if (!argv[i + 1])
 				goto arg_err;
+			eflag = true;
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
 		} else if (!strcmp(argv[i], "-b")) {
 			if (!argv[i + 1])
@@ -20,6 +22,11 @@ int main(int argc, char **argv)
 			bflag = true;
 			base = atoi(argv[i + 1]);
 		}
+	}
+
+	if (!eflag) {
+		printf("error: no expression input\n");
+		goto arg_err;
 	}
 
 	len = strnlen(expr, SCAN_INPUT_LEN);
