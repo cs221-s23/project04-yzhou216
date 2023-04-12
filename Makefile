@@ -1,5 +1,5 @@
-PROG = lab06 
-OBJS = base.o scan.o parse.o lab06.o
+PROG = project04
+OBJS = base.o scan.o parse.o project04.o
 
 CFLAGS = -g
 
@@ -9,7 +9,7 @@ CFLAGS = -g
 
 all : $(PROG)
 
-$(PROG) : lab06.h $(OBJS)
+$(PROG) : project04.h $(OBJS)
 	gcc $(CFLAGS) -o $@ $(OBJS) -lm
 
 clean :

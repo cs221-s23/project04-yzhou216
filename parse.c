@@ -1,6 +1,6 @@
 /* parse.c - parsing and parse tree construction */
 
-#include "lab06.h"
+#include "project04.h"
 
 void parse_table_init(struct parse_table_st *parse_table)
 {

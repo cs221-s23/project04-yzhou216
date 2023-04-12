@@ -1,5 +1,5 @@
-#ifndef _LAB06_H
-#define _LAB06_H
+#ifndef _PROJECT04_H
+#define _PROJECT04_H
 
 #include <fcntl.h>
 #include <stdarg.h>
@@ -121,4 +121,4 @@ struct parse_node_st *parse_operand(struct scan_table_st *st);
 /* Prototype for your implementation of string_to_int */
 int string_to_int(char *string, int base);
 
-#endif /* _LAB06_H */
+#endif /* _PROJECT04_H */

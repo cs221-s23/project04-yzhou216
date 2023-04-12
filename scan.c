@@ -1,6 +1,6 @@
 /* scan.c - token scanner */
 
-#include "lab06.h"
+#include "project04.h"
 
 void scan_error(char *err)
 {
