@@ -22,7 +22,6 @@ int main(int argc, char **argv)
 		}
 	}
 
-	strncpy(expr, argv[2], SCAN_INPUT_LEN);
 	len = strnlen(expr, SCAN_INPUT_LEN);
 
 	struct scan_table_st scan_table; /* table of tokens */
