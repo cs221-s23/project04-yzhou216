@@ -11,12 +11,12 @@ int main(int argc, char **argv)
 	bool bflag = false;
 	int base;
 	for (int i = 1; i < argc; i++) {
-		if (!strcmp(argv[i], "-e")) {
+		if (!strncmp(argv[i], "-e", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
 			eflag = true;
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
-		} else if (!strcmp(argv[i], "-b")) {
+		} else if (!strncmp(argv[i], "-b", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
 			bflag = true;
