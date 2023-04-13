@@ -16,11 +16,13 @@ int main(int argc, char **argv)
 				goto arg_err;
 			eflag = true;
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
+			i++;
 		} else if (!strncmp(argv[i], "-b", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
 			bflag = true;
 			base = atoi(argv[i + 1]);
+			i++;
 		}
 	}
 
