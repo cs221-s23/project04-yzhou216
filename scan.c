@@ -160,6 +160,18 @@ char *scan_token(char *p, char *end, struct scan_token_st *tp )
 		p = scan_read_token(tp, p, 1, TK_LPAREN);
 	} else if (*p == ')') {
 		p = scan_read_token(tp, p, 1, TK_RPAREN);
+	} else if (*p == '~'){
+		p = scan_read_token(tp, p, 1, TK_BITNOT);
+	} else if (*p == '&') {
+		p = scan_read_token(tp, p, 1, TK_BITAND);
+	} else if (*p == '|') {
+		p = scan_read_token(tp, p, 1, TK_BITOR);
+	} else if (*p == '^') {
+		p = scan_read_token(tp, p, 1, TK_BITXOR);
+	} else if (!strncmp(p, "<<", 2)) {
+		p = scan_read_token(tp, p, 2, TK_LSHIFT);
+	} else if (!strncmp(p, ">>", 2)) {
+		p = scan_read_token(tp, p, 2, TK_RSHIFT);
 	} else {
 		printf("unexpected token: %c\n", *p);
 		exit(-1);

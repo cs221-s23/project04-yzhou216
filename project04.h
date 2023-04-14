@@ -40,15 +40,36 @@ enum scan_token_enum {
 	TK_MINUS,  /* - */
 	TK_MULT,   /* * */
 	TK_DIV,    /* / */
+	TK_BITNOT, /* ~ */
+	TK_BITAND, /* & */
+	TK_BITOR,  /* | */
+	TK_BITXOR, /* ^ */
+	TK_LSHIFT, /* << */
+	TK_RSHIFT, /* >> */
 	TK_EOT,    /* end of text */
 	TK_ANY,    /* wildcard for parsing */
 	NUM_TOKENS,
 };
 
-#define SCAN_TOKEN_STRINGS {"TK_INTLIT", "TK_BINLIT", "TK_HEXLIT", \
-                            "TK_LPAREN", "TK_RPAREN", \
-                            "TK_PLUS", "TK_MINUS", "TK_MULT", "TK_DIV", \
-                            "TK_EOT", "TK_ANY"};
+#define SCAN_TOKEN_STRINGS { \
+	"TK_INTLIT", \
+	"TK_BINLIT", \
+	"TK_HEXLIT", \
+	"TK_LPAREN", \
+	"TK_RPAREN", \
+	"TK_PLUS", \
+	"TK_MINUS", \
+	"TK_MULT", \
+	"TK_DIV", \
+	"TK_BITNOT", \
+	"TK_BITAND", \
+	"TK_BITOR", \
+	"TK_BITXOR", \
+	"TK_LSHIFT", \
+	"TK_RSHIFT", \
+	"TK_EOT", \
+	"TK_ANY", \
+};
 
 struct scan_token_st {
 	enum scan_token_enum id;
