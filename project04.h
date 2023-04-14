@@ -100,7 +100,18 @@ bool scan_table_accept(struct scan_table_st *st, enum scan_token_enum tk_expecte
 */
 
 enum parse_expr_enum {EX_INTVAL, EX_OPER1, EX_OPER2};
-enum parse_oper_enum {OP_PLUS, OP_MINUS, OP_MULT, OP_DIV};
+enum parse_oper_enum {
+	OP_PLUS,
+	OP_MINUS,
+	OP_MULT,
+	OP_DIV,
+	OP_LSHIFT,
+	OP_RSHIFT,
+	OP_BITNOT,
+	OP_BITAND,
+	OP_BITOR,
+	OP_BITXOR,
+};
 
 struct parse_node_st {
 	enum parse_expr_enum type;

@@ -20,7 +20,18 @@ void parse_error(char *err)
 }
 
 /* These are names of operators for printing */
-char *parse_oper_strings[] = {"PLUS", "MINUS", "MULT", "DIV"};
+char *parse_oper_strings[] = {
+	"PLUS",
+	"MINUS",
+	"MULT",
+	"DIV",
+	"LSHIFT",
+	"RSHIFT",
+	"BITNOT",
+	"BITAND",
+	"BITOR",
+	"BITXOR",
+};
 
 /* Print the dots which represent tree depth in the output */
 void parse_tree_print_indent(int level)
@@ -124,6 +135,46 @@ struct parse_node_st *parse_expression(struct scan_table_st *scan_table)
 			node2->oper2.left = node1;
 			node2->oper2.right = parse_operand(scan_table);
 			node1 = node2;
+		} else if (token->id == TK_LSHIFT) {
+			scan_table_accept(scan_table, TK_ANY);
+			node2 = parse_node_new();
+			node2->type = EX_OPER2;
+			node2->oper2.oper = OP_LSHIFT;
+			node2->oper2.left = node1;
+			node2->oper2.right = parse_operand(scan_table);
+			node1 = node2;
+		} else if (token->id == TK_RSHIFT) {
+			scan_table_accept(scan_table, TK_ANY);
+			node2 = parse_node_new();
+			node2->type = EX_OPER2;
+			node2->oper2.oper = OP_RSHIFT;
+			node2->oper2.left = node1;
+			node2->oper2.right = parse_operand(scan_table);
+			node1 = node2;
+		} else if (token->id == TK_BITAND) {
+			scan_table_accept(scan_table, TK_ANY);
+			node2 = parse_node_new();
+			node2->type = EX_OPER2;
+			node2->oper2.oper = OP_BITAND;
+			node2->oper2.left = node1;
+			node2->oper2.right = parse_operand(scan_table);
+			node1 = node2;
+		} else if (token->id == TK_BITOR) {
+			scan_table_accept(scan_table, TK_ANY);
+			node2 = parse_node_new();
+			node2->type = EX_OPER2;
+			node2->oper2.oper = OP_BITOR;
+			node2->oper2.left = node1;
+			node2->oper2.right = parse_operand(scan_table);
+			node1 = node2;
+		} else if (token->id == TK_BITXOR) {
+			scan_table_accept(scan_table, TK_ANY);
+			node2 = parse_node_new();
+			node2->type = EX_OPER2;
+			node2->oper2.oper = OP_BITXOR;
+			node2->oper2.left = node1;
+			node2->oper2.right = parse_operand(scan_table);
+			node1 = node2;
 		} else {
 			break;
 		}
@@ -167,6 +218,11 @@ struct parse_node_st *parse_operand(struct scan_table_st *scan_table)
 		node = parse_node_new();
 		node->type = EX_OPER1;
 		node->oper1.oper = OP_MINUS;
+		node->oper1.operand = parse_operand(scan_table);
+	} else if (scan_table_accept(scan_table, TK_BITNOT)) {
+		node = parse_node_new();
+		node->type = EX_OPER1;
+		node->oper1.oper = OP_BITNOT;
 		node->oper1.operand = parse_operand(scan_table);
 	} else if (scan_table_accept(scan_table, TK_LPAREN)) {
 		node = parse_expression(scan_table);
