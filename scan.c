@@ -22,7 +22,7 @@ struct scan_token_st *scan_table_new_token(struct scan_table_st *tt)
 		tt->head = tp;
 	} else {
 		struct scan_token_st *walk = tt->head;
-		while (1) {
+		while (true) {
 			if (!walk->next) {
 				walk->next = tp;
 				break;
@@ -33,7 +33,7 @@ struct scan_token_st *scan_table_new_token(struct scan_table_st *tt)
 	}
 
 	/* increment the length of reserved tokens */
-	tt->len += 1;
+	tt->len++;
 	return tp;
 }
 
@@ -41,15 +41,15 @@ char *scan_read_token(struct scan_token_st *tp, char *p, int len,
 		      enum scan_token_enum id)
 {
 	/*
-	* Read a token starting a p for len characters.
-	* Update the given token with the token string and token id.
-	*/
+	 * Read a token starting a p for len characters.
+	 * Update the given token with the token string and token id.
+	 */
 	int i;
 
 	tp->id = id;
 	for (i = 0; i < len; i++) {
 		tp->name[i] = *p;
-		p += 1;
+		p++;
 	}
 	tp->name[i] = '\0';
 	return p;
@@ -68,7 +68,7 @@ bool scan_is_whitespace(char c)
 char *scan_whitespace(char *p, char *end)
 {
 	while (scan_is_whitespace(*p) && (p < end)) {
-		p += 1;
+		p++;
 	}
 	return p;
 }
@@ -93,7 +93,7 @@ char *scan_binlit(struct scan_token_st *tp, char *p, char *end)
 {
 	tp->id = TK_BINLIT;
 
-	p+=2; /* 0b */
+	p += 2; /* 0b */
 	int i;
 	for (i = 0; p < end; i++) {
 		if (*p != '0' && *p != '1')
@@ -115,7 +115,7 @@ char *scan_hexlit(struct scan_token_st *tp, char *p, char *end)
 {
 	tp->id = TK_HEXLIT;
 
-	p+=2; /* 0x */
+	p += 2; /* 0x */
 	int i;
 	for (i = 0; p < end; i++) {
 		if (!scan_is_digit(*p) && !scan_is_alpha(*p))
@@ -188,9 +188,8 @@ void scan_table_scan(struct scan_table_st *st, char *input, int len)
 	while(true) {
 		tp = scan_table_new_token(st);
 		p = scan_token(p, end, tp);
-		if (tp->id == TK_EOT) {
+		if (tp->id == TK_EOT)
 			break;
-		}
 	}
 }
 
@@ -232,14 +231,14 @@ bool scan_table_accept(struct scan_table_st *st,
 	struct scan_token_st *tp;
 
 	if (tk_expected == TK_ANY) {
-		st->next += 1;
+		st->next++;
 		return true;
 	}
 
 	tp = scan_table_get(st, 0);
 
 	if (tp->id == tk_expected) {
-		st->next += 1;
+		st->next++;
 		return true;
 	}
 

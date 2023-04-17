@@ -48,8 +48,6 @@ void parse_tree_print_expr(struct parse_node_st *node, int level)
 	parse_tree_print_indent(level);
 	printf("EXPR ");
 
-	/* TODO: add support for oper1 */
-
 	if (node->type == EX_INTVAL) {
 		printf("INTVAL %d\n", node->intval.value);
 	} else if (node->type == EX_OPER2) {
@@ -97,10 +95,6 @@ struct parse_node_st *parse_expression(struct scan_table_st *scan_table)
 
 	node1 = parse_operand(scan_table);
 
-	/*
-	 * TODO:
-	 * add cases for other OPER2 operators
-	 */
 	while (true) {
 		token = scan_table_get(scan_table, 0);
 		if (token->id == TK_PLUS) {
@@ -191,13 +185,6 @@ struct parse_node_st *parse_operand(struct scan_table_st *scan_table)
 {
 	struct scan_token_st *token;
 	struct parse_node_st *node;
-
-	/*
-	 * TODO
-	 * add case for unary minus e.g. "-1 + 1"
-	 * add case for operands which are expressions (i.e. begin with '(')
-	 * (hint: recurse to parse_expression)
-	 */
 
 	if (scan_table_accept(scan_table, TK_INTLIT)) {
 		token = scan_table_get(scan_table, -1);
