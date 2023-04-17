@@ -38,7 +38,19 @@ float eval(struct parse_node_st *node)
 	}
 }
 
-void eval_res_print(struct parse_node_st *node)
+void eval_res_print(struct parse_node_st *node, int base)
 {
-	printf("%d\n", (int) eval(node));
+	switch (base) {
+		case 2:
+			char bin_str[33];
+			int_to_bin(bin_str, (int) eval(node));
+			printf("0b%s\n", bin_str);
+			break;
+		case 10:
+			printf("%d\n", (int) eval(node));
+			break;
+		case 16:
+			/* to be implemented */
+			break;
+	}
 }

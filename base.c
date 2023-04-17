@@ -31,3 +31,21 @@ int string_to_int(char *str, int base)
 	}
 	return sum;
 }
+
+void int_to_bin(char *bin_str, int num)
+{
+	int i, j;
+	for (i = 31; i >= 0; i--) {
+		j = num >> i;
+		if (j & 1)
+			*(bin_str++) = '1';
+		else
+			*(bin_str++) = '0';
+	}
+	*bin_str = '\0';
+}
+
+void int_to_hex(char *hex_str, int num)
+{
+	/* to be implemented */
+}

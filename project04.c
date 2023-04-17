@@ -31,6 +31,9 @@ int main(int argc, char **argv)
 		goto arg_err;
 	}
 
+	if (!bflag)
+		base = DEFAULT_BASE;
+
 	len = strnlen(expr, SCAN_INPUT_LEN);
 
 	struct scan_table_st scan_table; /* table of tokens */
@@ -47,7 +50,7 @@ int main(int argc, char **argv)
 
 	parse_table_init(&parse_table);
 	parse_tree = parse_program(&scan_table);
-	eval_res_print(parse_tree);
+	eval_res_print(parse_tree, base);
 
 	return 0;
 
