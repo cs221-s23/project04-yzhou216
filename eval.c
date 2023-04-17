@@ -17,15 +17,15 @@ float eval(struct parse_node_st *node)
 			case OP_DIV:
 				return (l / r);
 			case OP_LSHIFT:
-				return ((int) l << (int) r);
+				return ((int)l << (int)r);
 			case OP_RSHIFT:
-				return ((int) l >> (int) r);
+				return ((int)l >> (int)r);
 			case OP_BITAND:
-				return ((int) l & (int) r);
+				return ((int)l & (int)r);
 			case OP_BITOR:
-				return ((int) l | (int) r);
+				return ((int)l | (int)r);
 			case OP_BITXOR:
-				return ((int) l ^ (int) r);
+				return ((int)l ^ (int)r);
 		}
 	} else if (node->type == EX_OPER1) {
 		float operand_val = eval(node->oper1.operand);
@@ -33,7 +33,7 @@ float eval(struct parse_node_st *node)
 			case OP_MINUS:
 				return (-1 * operand_val);
 			case OP_BITNOT:
-				return (~ (int) operand_val);
+				return (~(int)operand_val);
 		}
 	}
 }
@@ -45,14 +45,14 @@ void eval_res_print(struct parse_node_st *node, int base, int width)
 
 	switch (base) {
 		case 2:
-			int_to_bin(bin_str, (int) eval(node), width);
+			int_to_bin(bin_str, (int)eval(node), width);
 			printf("0b%s\n", bin_str);
 			break;
 		case 10:
-			printf("%d\n", (int) eval(node));
+			printf("%d\n", (int)eval(node));
 			break;
 		case 16:
-			int_to_hex(hex_str, (int) eval(node), width);
+			int_to_hex(hex_str, (int)eval(node), width);
 			printf("0x%s\n", hex_str);
 			break;
 	}
