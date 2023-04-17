@@ -1,5 +1,5 @@
 PROG = project04
-OBJS = base.o scan.o parse.o project04.o
+OBJS = base.o scan.o parse.o project04.o eval.o
 
 CFLAGS = -g
 

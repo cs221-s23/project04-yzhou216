@@ -48,6 +48,7 @@ int main(int argc, char **argv)
 	parse_table_init(&parse_table);
 	parse_tree = parse_program(&scan_table);
 	parse_tree_print(parse_tree);
+	eval_res_print(parse_tree);
 
 	return 0;
 

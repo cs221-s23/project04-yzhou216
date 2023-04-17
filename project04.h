@@ -154,4 +154,7 @@ struct parse_node_st *parse_operand(struct scan_table_st *st);
 /* Prototype for your implementation of string_to_int */
 int string_to_int(char *string, int base);
 
+/* parse tree evaluator */
+void eval_res_print(struct parse_node_st *node);
+
 #endif /* _PROJECT04_H */
