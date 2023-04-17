@@ -5,7 +5,7 @@ int main(int argc, char **argv)
 	if (argc < 3 || argc > 7)
 		goto arg_err;
 
-	char expr[SCAN_INPUT_LEN];
+	char expr[SCAN_INPUT_LEN + 1];
 	int len;
 	int base = DEFAULT_BASE;
 	int width = DEFAULT_WIDTH;
@@ -13,6 +13,7 @@ int main(int argc, char **argv)
 		if (!strncmp(argv[i], "-e", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
+			memset(expr, 0, SCAN_INPUT_LEN + 1);
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
 			len = strnlen(expr, SCAN_INPUT_LEN);
 			i++;
