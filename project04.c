@@ -5,45 +5,28 @@ int main(int argc, char **argv)
 	if (argc < 3 || argc > 7)
 		goto arg_err;
 
-	bool eflag = false;
 	char expr[SCAN_INPUT_LEN];
 	int len;
-	bool bflag = false;
-	int base;
-	bool wflag = false;
-	int width;
+	int base = DEFAULT_BASE;
+	int width = DEFAULT_WIDTH;
 	for (int i = 1; i < argc; i++) {
 		if (!strncmp(argv[i], "-e", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
-			eflag = true;
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
 			i++;
 		} else if (!strncmp(argv[i], "-b", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
-			bflag = true;
 			base = atoi(argv[i + 1]);
 			i++;
 		} else if (!strncmp(argv[i], "-w", 3)) {
 			if (!argv[i + 1])
 				goto arg_err;
-			wflag = true;
 			width = atoi(argv[i + 1]);
 			i++;
 		}
 	}
-
-	if (!eflag) {
-		printf("error: no expression input\n");
-		goto arg_err;
-	}
-
-	if (!bflag)
-		base = DEFAULT_BASE;
-
-	if (!wflag)
-		width = DEFAULT_WIDTH;
 
 	len = strnlen(expr, SCAN_INPUT_LEN);
 
