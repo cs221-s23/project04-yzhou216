@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	if (argc < 3 || argc > 5)
+	if (argc < 3 || argc > 7)
 		goto arg_err;
 
 	bool eflag = false;
@@ -10,6 +10,8 @@ int main(int argc, char **argv)
 	int len;
 	bool bflag = false;
 	int base;
+	bool wflag = false;
+	int width;
 	for (int i = 1; i < argc; i++) {
 		if (!strncmp(argv[i], "-e", 3)) {
 			if (!argv[i + 1])
@@ -23,6 +25,12 @@ int main(int argc, char **argv)
 			bflag = true;
 			base = atoi(argv[i + 1]);
 			i++;
+		} else if (!strncmp(argv[i], "-w", 3)) {
+			if (!argv[i + 1])
+				goto arg_err;
+			wflag = true;
+			width = atoi(argv[i + 1]);
+			i++;
 		}
 	}
 
@@ -33,6 +41,9 @@ int main(int argc, char **argv)
 
 	if (!bflag)
 		base = DEFAULT_BASE;
+
+	if (!wflag)
+		width = DEFAULT_WIDTH;
 
 	len = strnlen(expr, SCAN_INPUT_LEN);
 
@@ -45,7 +56,7 @@ int main(int argc, char **argv)
 
 	parse_table_init(&parse_table);
 	parse_tree = parse_program(&scan_table);
-	eval_res_print(parse_tree, base);
+	eval_res_print(parse_tree, base, width);
 
 	return 0;
 

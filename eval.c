@@ -38,20 +38,21 @@ float eval(struct parse_node_st *node)
 	}
 }
 
-void eval_res_print(struct parse_node_st *node, int base)
+void eval_res_print(struct parse_node_st *node, int base, int width)
 {
+	char bin_str[width + 1];
+	char hex_str[(width / 8) + 1];
+
 	switch (base) {
 		case 2:
-			char bin_str[33];
-			int_to_bin(bin_str, (int) eval(node));
+			int_to_bin(bin_str, (int) eval(node), width);
 			printf("0b%s\n", bin_str);
 			break;
 		case 10:
 			printf("%d\n", (int) eval(node));
 			break;
 		case 16:
-			char hex_str[9];
-			int_to_hex(hex_str, (int) eval(node));
+			int_to_hex(hex_str, (int) eval(node), width);
 			printf("0x%s\n", hex_str);
 			break;
 	}

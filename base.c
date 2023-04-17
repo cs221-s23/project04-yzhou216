@@ -32,11 +32,11 @@ int string_to_int(char *str, int base)
 	return sum;
 }
 
-void int_to_bin(char *bin_str, int num)
+void int_to_bin(char *bin_str, int num, int width)
 {
 	memset(bin_str, 0, strlen(bin_str));
 	int i, j;
-	for (i = 31; i >= 0; i--) {
+	for (i = width - 1; i >= 0; i--) {
 		j = num >> i;
 		if (j & 1)
 			*(bin_str++) = '1';
@@ -46,7 +46,7 @@ void int_to_bin(char *bin_str, int num)
 	*bin_str = '\0';
 }
 
-void int_to_hex(char *hex_str, int num)
+void int_to_hex(char *hex_str, int num, int width)
 {
 	memset(hex_str, 0, strlen(hex_str));
 	int i, j;

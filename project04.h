@@ -31,6 +31,7 @@
 #define SCAN_INPUT_LEN 2048
 
 #define DEFAULT_BASE 10
+#define DEFAULT_WIDTH 32
 
 enum scan_token_enum {
 	TK_INTLIT, /* -123, 415 */
@@ -157,10 +158,10 @@ struct parse_node_st *parse_operand(struct scan_table_st *st);
 int string_to_int(char *string, int base);
 
 /* base conversion */
-void int_to_bin(char *bin_str, int num);
-void int_to_hex(char *hex_str, int num);
+void int_to_bin(char *bin_str, int num, int width);
+void int_to_hex(char *hex_str, int num, int width);
 
 /* parse tree evaluator */
-void eval_res_print(struct parse_node_st *node, int base);
+void eval_res_print(struct parse_node_st *node, int base, int width);
 
 #endif /* _PROJECT04_H */
