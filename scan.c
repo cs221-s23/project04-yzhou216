@@ -108,7 +108,7 @@ char *scan_binlit(struct scan_token_st *tp, char *p, char *end)
 
 bool scan_is_alpha(char c)
 {
-	return c >= 'a' && c <= 'f';
+	return ((c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F'));
 }
 
 char *scan_hexlit(struct scan_token_st *tp, char *p, char *end)
