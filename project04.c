@@ -14,6 +14,7 @@ int main(int argc, char **argv)
 			if (!argv[i + 1])
 				goto arg_err;
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
+			len = strnlen(expr, SCAN_INPUT_LEN);
 			i++;
 		} else if (!strncmp(argv[i], "-b", 3)) {
 			if (!argv[i + 1])
@@ -27,8 +28,6 @@ int main(int argc, char **argv)
 			i++;
 		}
 	}
-
-	len = strnlen(expr, SCAN_INPUT_LEN);
 
 	struct scan_table_st scan_table; /* table of tokens */
 	struct parse_table_st parse_table; /* table of parse nodes */
