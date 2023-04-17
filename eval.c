@@ -50,7 +50,10 @@ void eval_res_print(struct parse_node_st *node, int base)
 			printf("%d\n", (int) eval(node));
 			break;
 		case 16:
-			/* to be implemented */
+			char hex_str[9];
+			memset(hex_str, 0, sizeof(hex_str));
+			int_to_hex(hex_str, (int) eval(node));
+			printf("0x%s\n", hex_str);
 			break;
 	}
 }

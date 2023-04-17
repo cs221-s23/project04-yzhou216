@@ -47,5 +47,13 @@ void int_to_bin(char *bin_str, int num)
 
 void int_to_hex(char *hex_str, int num)
 {
-	/* to be implemented */
+	int i, j;
+	for (i = 28; i >= 0; i -= 4) {
+		j = (num >> i) & 0xF;
+		if (j <= 9)
+			*(hex_str++) = '0' + j;
+		else
+			*(hex_str++) = 'A' + (j - 10);
+	}
+	*hex_str = '\0';
 }
