@@ -34,6 +34,7 @@ int string_to_int(char *str, int base)
 
 void int_to_bin(char *bin_str, int num)
 {
+	memset(bin_str, 0, strlen(bin_str));
 	int i, j;
 	for (i = 31; i >= 0; i--) {
 		j = num >> i;
@@ -47,6 +48,7 @@ void int_to_bin(char *bin_str, int num)
 
 void int_to_hex(char *hex_str, int num)
 {
+	memset(hex_str, 0, strlen(hex_str));
 	int i, j;
 	for (i = 28; i >= 0; i -= 4) {
 		j = (num >> i) & 0xF;
