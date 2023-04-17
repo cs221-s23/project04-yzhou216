@@ -35,9 +35,8 @@ int string_to_int(char *str, int base)
 void int_to_bin(char *bin_str, int num, int width)
 {
 	memset(bin_str, 0, strlen(bin_str));
-	int i, j;
-	for (i = width - 1; i >= 0; i--) {
-		j = num >> i;
+	for (int i = width - 1; i >= 0; i--) {
+		int j = num >> i;
 		if (j & 1)
 			*(bin_str++) = '1';
 		else
@@ -49,9 +48,8 @@ void int_to_bin(char *bin_str, int num, int width)
 void int_to_hex(char *hex_str, int num, int width)
 {
 	memset(hex_str, 0, strlen(hex_str));
-	int i, j;
-	for (i = width - 4; i >= 0; i -= 4) {
-		j = (num >> i) & 0xF;
+	for (int i = width - 4; i >= 0; i -= 4) {
+		int j = (num >> i) & 0xF;
 		if (j <= 9)
 			*(hex_str++) = '0' + j;
 		else
