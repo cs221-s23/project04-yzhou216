@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 	return 0;
 
 arg_err:
-	printf("usage: ./lab06 -e \"expr\" -b \"base\"\n");
-	printf("  example: ./lab06 -e \"1 + 2\" -b 10\n");
+	printf("usage: %s [-e expression] [-b base] [-w width]\n", argv[0]);
+	printf("  example: %s -e \"0xA + 1\" -b 2 -w 8\n", argv[0]);
 	exit(-1);
 }
