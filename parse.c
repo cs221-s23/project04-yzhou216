@@ -19,20 +19,6 @@ void parse_error(char *err)
 	exit(-1);
 }
 
-/* These are names of operators for printing */
-char *parse_oper_strings[] = {
-	"PLUS",
-	"MINUS",
-	"MULT",
-	"DIV",
-	"LSHIFT",
-	"RSHIFT",
-	"BITNOT",
-	"BITAND",
-	"BITOR",
-	"BITXOR",
-};
-
 /* Print the dots which represent tree depth in the output */
 void parse_tree_print_indent(int level)
 {
@@ -48,14 +34,16 @@ void parse_tree_print_expr(struct parse_node_st *node, int level)
 	parse_tree_print_indent(level);
 	printf("EXPR ");
 
+	char *oper_names[NUM_OPERS] = PARSE_OPER_STRINGS;
+
 	if (node->type == EX_INTVAL) {
 		printf("INTVAL %d\n", node->intval.value);
 	} else if (node->type == EX_OPER2) {
-		printf("OPER2 %s\n", parse_oper_strings[node->oper2.oper]);
+		printf("OPER2 %s\n", oper_names[node->oper2.oper]);
 		parse_tree_print_expr(node->oper2.left, level + 1);
 		parse_tree_print_expr(node->oper2.right, level + 1);
 	} else if (node->type == EX_OPER1) {
-		printf("OPER1 %s\n", parse_oper_strings[node->oper1.oper]);
+		printf("OPER1 %s\n", oper_names[node->oper1.oper]);
 		parse_tree_print_expr(node->oper1.operand, level + 1);
 	}
 }

@@ -114,6 +114,20 @@ enum parse_oper_enum {
 	OP_BITAND,
 	OP_BITOR,
 	OP_BITXOR,
+	NUM_OPERS,
+};
+
+#define PARSE_OPER_STRINGS { \
+	"PLUS", \
+	"MINUS", \
+	"MULT", \
+	"DIV", \
+	"LSHIFT", \
+	"RSHIFT", \
+	"BITNOT", \
+	"BITAND", \
+	"BITOR", \
+	"BITXOR", \
 };
 
 struct parse_node_st {
