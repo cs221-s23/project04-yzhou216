@@ -2,30 +2,29 @@
 
 int main(int argc, char **argv)
 {
-	if (argc < 3 || argc > 7)
-		goto arg_err;
-
+	int opt;
 	char expr[SCAN_INPUT_LEN + 1];
 	int base = DEFAULT_BASE;
 	int width = DEFAULT_WIDTH;
-	for (int i = 1; i < argc; i++) {
-		if (!strncmp(argv[i], "-e", 3)) {
-			if (!argv[i + 1])
+	while ((opt = getopt(argc, argv, "e:b:w:")) != -1) {
+		switch (opt) {
+			case 'e':
+				memset(expr, 0, SCAN_INPUT_LEN + 1);
+				strncpy(expr, optarg, SCAN_INPUT_LEN);
+				break;
+			case 'b':
+				base = atoi(optarg);
+				break;
+			case 'w':
+				width = atoi(optarg);
+				break;
+			default:
 				goto arg_err;
-			memset(expr, 0, SCAN_INPUT_LEN + 1);
-			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
-			i++;
-		} else if (!strncmp(argv[i], "-b", 3)) {
-			if (!argv[i + 1])
-				goto arg_err;
-			base = atoi(argv[i + 1]);
-			i++;
-		} else if (!strncmp(argv[i], "-w", 3)) {
-			if (!argv[i + 1])
-				goto arg_err;
-			width = atoi(argv[i + 1]);
-			i++;
 		}
+	}
+
+	if (optind < 3 || optind > 7) {
+		goto arg_err;
 	}
 
 	struct scan_table_st scan_table; /* table of tokens */
