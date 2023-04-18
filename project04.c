@@ -23,9 +23,8 @@ int main(int argc, char **argv)
 		}
 	}
 
-	if (optind < 3 || optind > 7) {
+	if (optind < 3 || optind > 7)
 		goto arg_err;
-	}
 
 	struct scan_table_st scan_table; /* table of tokens */
 	struct parse_table_st parse_table; /* table of parse nodes */
