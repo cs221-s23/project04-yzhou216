@@ -29,6 +29,7 @@ int string_to_int(char *str, int base)
 
 		sum += digit * pow(base, strlen(str) - i - 1);
 	}
+
 	return sum;
 }
 

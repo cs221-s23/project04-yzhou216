@@ -6,7 +6,6 @@ int main(int argc, char **argv)
 		goto arg_err;
 
 	char expr[SCAN_INPUT_LEN + 1];
-	int len;
 	int base = DEFAULT_BASE;
 	int width = DEFAULT_WIDTH;
 	for (int i = 1; i < argc; i++) {
@@ -15,7 +14,6 @@ int main(int argc, char **argv)
 				goto arg_err;
 			memset(expr, 0, SCAN_INPUT_LEN + 1);
 			strncpy(expr, argv[i + 1], SCAN_INPUT_LEN);
-			len = strnlen(expr, SCAN_INPUT_LEN);
 			i++;
 		} else if (!strncmp(argv[i], "-b", 3)) {
 			if (!argv[i + 1])
@@ -35,7 +33,7 @@ int main(int argc, char **argv)
 	struct parse_node_st *parse_tree; /* tree (pointers only) of parse nodes */
 
 	scan_table_init(&scan_table);
-	scan_table_scan(&scan_table, expr, len);
+	scan_table_scan(&scan_table, expr, strnlen(expr, SCAN_INPUT_LEN));
 
 	parse_table_init(&parse_table);
 	parse_tree = parse_program(&scan_table);
