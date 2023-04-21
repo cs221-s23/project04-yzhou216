@@ -70,6 +70,25 @@ struct parse_node_st *parse_program(struct scan_table_st *scan_table)
 	return root;
 }
 
+/* Check if tokens in the expression are defined by the EBNF */
+bool check_parse_expression_token(struct scan_token_st *token)
+{
+	switch (token->id) {
+		case TK_PLUS:
+		case TK_MINUS:
+		case TK_MULT:
+		case TK_DIV:
+		case TK_LSHIFT:
+		case TK_RSHIFT:
+		case TK_BITAND:
+		case TK_BITOR:
+		case TK_BITXOR:
+			return true;
+		default:
+			return false;
+	}
+}
+
 /*
  * Build the tree for expressions
  * Expressions are defined in the EBNF as an operator followed by zero or more
@@ -85,81 +104,46 @@ struct parse_node_st *parse_expression(struct scan_table_st *scan_table)
 
 	while (true) {
 		token = scan_table_get(scan_table, 0);
-		if (token->id == TK_PLUS) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_PLUS;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_MINUS) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_MINUS;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_MULT) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_MULT;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_DIV) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_DIV;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_LSHIFT) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_LSHIFT;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_RSHIFT) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_RSHIFT;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_BITAND) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_BITAND;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_BITOR) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_BITOR;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else if (token->id == TK_BITXOR) {
-			scan_table_accept(scan_table, TK_ANY);
-			node2 = parse_node_new();
-			node2->type = EX_OPER2;
-			node2->oper2.oper = OP_BITXOR;
-			node2->oper2.left = node1;
-			node2->oper2.right = parse_operand(scan_table);
-			node1 = node2;
-		} else {
+		if (!check_parse_expression_token(token))
 			break;
+
+		scan_table_accept(scan_table, TK_ANY);
+		node2 = parse_node_new();
+		node2->type = EX_OPER2;
+
+		switch (token->id) {
+			case TK_PLUS:
+				node2->oper2.oper = OP_PLUS;
+				break;
+			case TK_MINUS:
+				node2->oper2.oper = OP_MINUS;
+				break;
+			case TK_MULT:
+				node2->oper2.oper = OP_MULT;
+				break;
+			case TK_DIV:
+				node2->oper2.oper = OP_DIV;
+				break;
+			case TK_LSHIFT:
+				node2->oper2.oper = OP_LSHIFT;
+				break;
+			case TK_RSHIFT:
+				node2->oper2.oper = OP_RSHIFT;
+				break;
+			case TK_BITAND:
+				node2->oper2.oper = OP_BITAND;
+				break;
+			case TK_BITOR:
+				node2->oper2.oper = OP_BITOR;
+				break;
+			case TK_BITXOR:
+				node2->oper2.oper = OP_BITOR;
+				break;
 		}
+
+		node2->oper2.left = node1;
+		node2->oper2.right = parse_operand(scan_table);
+		node1 = node2;
 	}
 
 	return node1;
